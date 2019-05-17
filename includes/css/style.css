@@ -1,0 +1,67 @@
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+.wrapper {
+    background-image: url(../images/bg-default.jpg);
+    background-attachment: fixed;
+    width: 100%;
+    height: 1080px;
+    position: relative;
+}
+
+.cover {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 50px 0;
+    width: 70%;
+}
+
+.item {
+    margin-bottom: 30px;
+    width: 300px;
+}
+
+.item .channel-preview {
+    display: block;
+    max-width: 100%;
+}
+
+.item  .channel-info {
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    padding: 10px;
+    align-items: center;
+}
+
+.item  .channel-info > div:first-child {
+    margin-right: 10px;
+}
+
+.item .channel-info .avatar {
+    border-radius: 50%;
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+}
+
+.item .channel-info .title {
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.item .channel-info .name {
+    color: #fff;
+}
