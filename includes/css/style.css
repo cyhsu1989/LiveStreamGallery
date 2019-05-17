@@ -49,6 +49,9 @@ body {
 .item  .channel-info > div:first-child {
     margin-right: 10px;
 }
+.item  .channel-info > div:last-child {
+    width: calc(100% - 60px);
+}
 
 .item .channel-info .avatar {
     border-radius: 50%;
@@ -57,11 +60,12 @@ body {
     height: 50px;
 }
 
-.item .channel-info .title {
+.item .channel-info .text {
     color: #fff;
-    margin-bottom: 5px;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
-.item .channel-info .name {
-    color: #fff;
+.item .channel-info .title {
+    margin-bottom: 5px;
 }
