@@ -28,8 +28,15 @@ body {
 }
 
 .item {
+    cursor: pointer;
     margin-bottom: 30px;
     width: 300px;
+    transition: filter, box-shadow 250ms ease-in-out;
+}
+
+.item:hover {
+    filter: brightness(150%);
+    box-shadow: 5px 5px 20px 5px rgba(0, 0, 0, 0.5);
 }
 
 .item .channel-preview {
@@ -59,7 +66,7 @@ body {
 }
 
 .item .channel-info .text {
-    color: #fff;
+    color: #ddd;
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis;
