@@ -343,6 +343,7 @@ template {
 
 body {
   font-family: 'Noto Sans TC', sans-serif;
+  line-height: 1.5;
 }
 
 .wrapper {
@@ -430,6 +431,11 @@ body {
 }
 
 .wrapper .container .item .text.title {
-  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.wrapper .container .item .text.name {
+  font-size: 14px;
+  font-weight: 300;
 }
 /*# sourceMappingURL=style.css.map */
