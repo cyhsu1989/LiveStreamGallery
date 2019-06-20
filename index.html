@@ -79,7 +79,37 @@
                 "Client-ID": clientID
             },
             success: function (result) {
-                renderItems(result.data);
+                getUserDataByUserIds(result.data);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function getUserDataByUserIds(streamData) {
+        var userIDs = "?id=";
+
+        for (let i = 0; i < streamData.length; i++) {
+            const element = streamData[i];
+
+            if(i === streamData.length - 1) {
+                userIDs += element.user_id;
+            } else {
+                userIDs += element.user_id + "&id=";
+            }
+        }
+
+        $.ajax({
+            url: "https://api.twitch.tv/helix/users" + userIDs,
+            headers: {
+                "Client-ID": clientID
+            },
+            success: function (result) {
+                for (let i = 0; i < result.data.length; i++) {
+                    streamData[i]["userData"] = result.data[i];
+                }
+                renderItems(streamData);
             },
             error: function (error) {
                 console.log(error);
@@ -93,6 +123,7 @@
             $(item).find(".channel-preview").attr("src", element.thumbnail_url.replace("{width}", 320).replace("{height}", 180));
             $(item).find(".channel-info .title").html(element.title);
             $(item).find(".channel-info .name").html(element.user_name);
+            $(item).find(".channel-info .avatar").attr("src", element.userData.profile_image_url);
             
             $(".container").append(item);
         });
