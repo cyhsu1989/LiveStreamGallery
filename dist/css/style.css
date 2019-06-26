@@ -385,6 +385,10 @@ body {
   transition: filter, box-shadow 250ms ease-in-out, -webkit-filter, -webkit-box-shadow 250ms ease-in-out;
 }
 
+.wrapper .container .item[style="visibility: hidden;"] {
+  margin: 0;
+}
+
 .wrapper .container .item:hover {
   -webkit-filter: brightness(150%);
           filter: brightness(150%);

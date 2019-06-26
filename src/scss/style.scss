@@ -34,6 +34,10 @@ body {
             width: 300px;
             transition: filter, box-shadow 250ms ease-in-out;
 
+            &[style="visibility: hidden;"] {
+                margin: 0;
+            }
+
             &:hover {
                 filter: brightness(150%);
                 box-shadow: 5px 5px 20px 5px rgba(0, 0, 0, 0.5);
