@@ -44,6 +44,7 @@
     var gameName = "League of Legends";
     var gameID = "";
     var data = [];
+    var pagination = "";
 
     if (gameName) {
         $.ajax({
@@ -56,22 +57,32 @@
             },
             success: function (response) {
                 gameID = response.data[0] ? response.data[0].id : "";
-                getStreams(gameID);
+                getStreams({
+                    "game_id": gameID,
+                    "first": num
+                });
             }
         });
     } else {
-        getStreams();
+        getStreams({
+            "first": num
+        });
     }
 
-    function getStreams(gameID) {
-        var data = {
-            "first": num
-        }
+    $(document).ready(function () {
+        $(window).scroll(function() {
+            if($(window).scrollTop() + $(window).height() == $(document).height()) {
+                if (pagination) {
+                    getStreams({
+                        "after": pagination
+                    });
+                }
+            }
+        });
+    });
 
-        if(gameID) {
-            data["game_id"] = gameID;
-        }
 
+    function getStreams(data) {
         $.ajax({
             url: "https://api.twitch.tv/helix/streams",
             data: data,
@@ -79,6 +90,7 @@
                 "Client-ID": clientID
             },
             success: function (result) {
+                pagination = result.pagination;
                 getUserDataByUserIds(result.data);
             },
             error: function (error) {
@@ -118,6 +130,8 @@
     }
 
     function renderItems(data) {
+        $(".item.fake").remove();
+
         data.forEach(element => {
             var item = $(".template").children().clone();
             $(item).find(".channel-preview").attr("src", element.thumbnail_url.replace("{width}", 320).replace("{height}", 180));
@@ -129,7 +143,7 @@
         });
 
         for (let i = 0; i < (data.length % 3); i++) {
-            $(".container").append("<div class='item' style='visibility: hidden;'></div>");
+            $(".container").append("<div class='item fake' style='visibility: hidden;'></div>");
         }
     }
 </script>
