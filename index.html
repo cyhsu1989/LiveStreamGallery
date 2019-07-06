@@ -74,7 +74,7 @@
             if($(window).scrollTop() + $(window).height() == $(document).height()) {
                 if (pagination) {
                     getStreams({
-                        "after": pagination
+                        "after": pagination.cursor
                     });
                 }
             }
