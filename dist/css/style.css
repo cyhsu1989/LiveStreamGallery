@@ -426,6 +426,10 @@ body {
 }
 
 .wrapper .container .item .avatar {
+  background-image: url(../../includes/images/img_avatar.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
   border-radius: 50%;
   vertical-align: middle;
   width: 50px;
