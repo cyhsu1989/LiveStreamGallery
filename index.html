@@ -94,7 +94,6 @@
             success: function (result) {
                 pagination = result.pagination;
                 getUserDataByUserIds(result.data);
-                isLoading = false;
             },
             error: function (error) {
                 console.log(error);
@@ -125,6 +124,7 @@
                     streamData[i]["userData"] = result.data[i];
                 }
                 renderItems(streamData);
+                isLoading = false;
             },
             error: function (error) {
                 console.log(error);
