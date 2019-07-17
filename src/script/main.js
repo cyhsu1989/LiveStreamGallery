@@ -7,21 +7,19 @@ var pagination = "";
 var isLoading = true;
 
 if (gameName) {
-    $.ajax({
-        url: "https://api.twitch.tv/helix/games",
-        data: {
-            "name": gameName
-        },
+    fetch("https://api.twitch.tv/helix/games?name=" + gameName, {
+        method: 'GET',
         headers: {
             "Client-ID": clientID
-        },
-        success: function (response) {
-            gameID = response.data[0] ? response.data[0].id : "";
-            getStreams({
-                "game_id": gameID,
-                "first": num
-            });
         }
+    }).then(response => response.json()).then(jsonData => {
+        gameID = jsonData.data[0] ? jsonData.data[0].id : "";
+        getStreams({
+            "game_id": gameID,
+            "first": num
+        });
+    }).catch((err) => {
+        console.log('Error: ', err);
     });
 } else {
     getStreams({
@@ -43,20 +41,21 @@ $(document).ready(function () {
 });
 
 
-function getStreams(data) {
-    $.ajax({
-        url: "https://api.twitch.tv/helix/streams",
-        data: data,
+function getStreams(params) {
+    let queryParams = Object.keys(params)
+        .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+        .join('&');
+
+    fetch("https://api.twitch.tv/helix/streams?" + queryParams, {
+        method: 'GET',
         headers: {
             "Client-ID": clientID
-        },
-        success: function (result) {
-            pagination = result.pagination;
-            getUserDataByUserIds(result.data);
-        },
-        error: function (error) {
-            console.log(error);
         }
+    }).then(response => response.json()).then(jsonData => {
+        pagination = jsonData.pagination;
+        getUserDataByUserIds(jsonData.data);
+    }).catch(err => {
+        console.log("Error: " + err);
     });
 }
 
@@ -73,21 +72,19 @@ function getUserDataByUserIds(streamData) {
         }
     }
 
-    $.ajax({
-        url: "https://api.twitch.tv/helix/users" + userIDs,
+    fetch("https://api.twitch.tv/helix/users" + userIDs, {
+        method: 'GET',
         headers: {
             "Client-ID": clientID
-        },
-        success: function (result) {
-            for (let i = 0; i < result.data.length; i++) {
-                streamData[i]["userData"] = result.data[i];
-            }
-            renderItems(streamData);
-            isLoading = false;
-        },
-        error: function (error) {
-            console.log(error);
         }
+    }).then(response => response.json()).then(jsonData => {
+        for (let i = 0; i < jsonData.data.length; i++) {
+            streamData[i]["userData"] = jsonData.data[i];
+        }
+        renderItems(streamData);
+        isLoading = false;
+    }).catch(err => {
+        console.log("Error: " + err);
     });
 }
 
