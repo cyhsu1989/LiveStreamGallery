@@ -27,9 +27,9 @@ if (gameName) {
     });
 }
 
-$(document).ready(function () {
-    $(window).scroll(function () {
-        if ($(window).scrollTop() + $(window).height() >= ($(document).height() - 200)) {
+document.addEventListener("DOMContentLoaded", function() {
+    window.addEventListener("scroll", function() {        
+        if (window.pageYOffset + window.innerHeight >= (document.documentElement.offsetHeight - 200)) {
             if (pagination && (!isLoading)) {
                 isLoading = true;
                 getStreams({
@@ -39,7 +39,6 @@ $(document).ready(function () {
         }
     });
 });
-
 
 function getStreams(params) {
     let queryParams = Object.keys(params)
