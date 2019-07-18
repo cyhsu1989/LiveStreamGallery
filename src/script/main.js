@@ -88,19 +88,20 @@ function getUserDataByUserIds(streamData) {
 }
 
 function renderItems(data) {
-    $(".item.fake").remove();
+    document.querySelectorAll('.item.fake').forEach(key => key.remove());
 
     data.forEach(element => {
-        var item = $(".template").children().clone();
-        $(item).find(".channel-preview").attr("src", element.thumbnail_url.replace("{width}", 320).replace("{height}", 180));
-        $(item).find(".channel-info .title").html(element.title);
-        $(item).find(".channel-info .name").html(element.user_name);
-        $(item).find(".channel-info .avatar").attr("src", element.userData.profile_image_url);
+        var item = document.getElementById("__template__").children.item(0).cloneNode(true);
 
-        $(".container").append(item);
+        item.querySelector(".channel-preview").setAttribute("src", element.thumbnail_url.replace("{width}", 320).replace("{height}", 180));
+        item.querySelector(".channel-info .avatar").setAttribute("src", element.userData.profile_image_url);
+        item.querySelector(".channel-info .title").innerHTML = element.title;
+        item.querySelector(".channel-info .name").innerHTML = element.user_name;
+
+        document.querySelector(".container").appendChild(item);
     });
 
     for (let i = 0; i < (data.length % 3); i++) {
-        $(".container").append("<div class='item fake' style='visibility: hidden;'></div>");
+        document.querySelector(".container").insertAdjacentHTML("beforeend", "<div class='item fake' style='visibility: hidden;'></div>");
     }
 }
