@@ -57,10 +57,14 @@ function setLanguage() {
     if(currentLang === this.dataset.lang) {
         return;
     }
-    
+
     document.querySelectorAll('li[data-lang]').forEach(key => key.classList.remove('active'));
     currentLang = this.dataset.lang;
     this.classList.add('active');
+
+    document.querySelectorAll('[data-i18n]').forEach(key => {
+        key.innerHTML = window.I18N[currentLang][key.getAttribute('data-i18n')];
+    });
 
     reGenerateStreams();
 }
