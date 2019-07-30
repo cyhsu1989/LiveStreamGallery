@@ -361,6 +361,39 @@ body {
   height: 100%;
 }
 
+.wrapper header {
+  padding: 20px;
+  position: relative;
+}
+
+.wrapper header .title {
+  color: #fff;
+  margin: 0;
+  text-align: center;
+}
+
+.wrapper header .lang-switch {
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.wrapper header .lang-switch li {
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.wrapper header .lang-switch li:hover, .wrapper header .lang-switch li.active {
+  color: lightblue;
+}
+
 .wrapper .container {
   position: relative;
   display: -webkit-box;

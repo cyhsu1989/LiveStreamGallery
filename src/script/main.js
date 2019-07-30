@@ -5,6 +5,8 @@ var gameID = "";
 var data = [];
 var pagination = "";
 var isLoading = true;
+var defaultLang = "en";
+var currentLang = defaultLang;
 
 if (gameName) {
     fetch("https://api.twitch.tv/helix/games?name=" + gameName, {
@@ -16,14 +18,16 @@ if (gameName) {
         gameID = jsonData.data[0] ? jsonData.data[0].id : "";
         getStreams({
             "game_id": gameID,
-            "first": num
+            "first": num,
+            "language": currentLang || defaultLang || ""
         });
     }).catch((err) => {
         console.log('Error: ', err);
     });
 } else {
     getStreams({
-        "first": num
+        "first": num,
+        "language": currentLang || defaultLang || ""
     });
 }
 
@@ -33,12 +37,44 @@ document.addEventListener("DOMContentLoaded", function() {
             if (pagination && (!isLoading)) {
                 isLoading = true;
                 getStreams({
-                    "after": pagination.cursor
+                    "after": pagination.cursor,
+                    "language": currentLang || defaultLang || ""
                 });
             }
         }
     });
+
+    document.querySelectorAll('li[data-lang]').forEach(key => {
+        if(key.dataset.lang === currentLang) {
+            key.classList.add('active');
+        }
+
+        key.addEventListener('click', setLanguage);
+    });
 });
+
+function setLanguage() {
+    if(currentLang === this.dataset.lang) {
+        return;
+    }
+    
+    document.querySelectorAll('li[data-lang]').forEach(key => key.classList.remove('active'));
+    currentLang = this.dataset.lang;
+    this.classList.add('active');
+
+    reGenerateStreams();
+}
+
+function reGenerateStreams() {
+    document.querySelector(".container").innerHTML = '';
+
+    isLoading = true;
+    getStreams({
+        "game_id": gameID,
+        "first": num,
+        "language": currentLang || defaultLang || ""
+    });
+}
 
 function getStreams(params) {
     let queryParams = Object.keys(params)

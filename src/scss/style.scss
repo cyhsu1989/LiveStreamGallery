@@ -19,6 +19,36 @@ body {
         height: 100%;
     }
 
+    header {
+        padding: 20px;
+        position: relative;
+
+        .title {
+            color: #fff;
+            margin: 0;
+            text-align: center;
+        }
+
+        .lang-switch {
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            text-align: center;
+
+            li {
+                cursor: pointer;
+                margin: 0 10px;
+                
+                &:hover,
+                &.active {
+                    color: lightblue;
+                }
+            }
+        }
+    }
+
     .container {
         position: relative;
         display: flex;
