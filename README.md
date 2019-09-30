@@ -19,6 +19,7 @@
 
 ## 使用技術
 
+* HTML5 data attribute
 * CSS transition
 * CSS 預處理器 SASS/SCSS
 * jQuery
